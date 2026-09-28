@@ -2,6 +2,8 @@ package com.example.demo.modelo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -10,72 +12,46 @@ import jakarta.persistence.Table;
 public class Vehiculo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_vehiculo")
     private Long idVehiculo;
 
     private String placa;
 
+    private String tipo; 
     private String color;
 
-    private Double valorDiario;
+    @Column(name = "valor_alquiler")
+    private Double valorAlquiler; 
 
-    private Boolean disponible = true;
+    private String estado;
 
-    
-	public Vehiculo() {
-		
-	}
+    public Vehiculo() {}
 
-	public Vehiculo(Long idVehiculo, String placa, String color, Double valorDiario, Boolean disponible) {
-	
-		this.idVehiculo = idVehiculo;
-		this.placa = placa;
-		this.color = color;
-		this.valorDiario = valorDiario;
-		this.disponible = disponible;
-	}
+    public Vehiculo(String placa, String tipo, String color, Double valorAlquiler, String estado) {
+        this.placa = placa;
+        this.tipo = tipo;
+        this.color = color;
+        this.valorAlquiler = valorAlquiler;
+        this.estado = estado;
+    }
 
-	public Long getIdVehiculo() {
-		return idVehiculo;
-	}
+    // Getters y Setters
+    public Long getIdVehiculo() { return idVehiculo; }
+    public void setIdVehiculo(Long idVehiculo) { this.idVehiculo = idVehiculo; }
 
-	public void setIdVehiculo(Long idVehiculo) {
-		this.idVehiculo = idVehiculo;
-	}
+    public String getPlaca() { return placa; }
+    public void setPlaca(String placa) { this.placa = placa; }
 
-	public String getPlaca() {
-		return placa;
-	}
+    public String getTipo() { return tipo; }
+    public void setTipo(String tipo) { this.tipo = tipo; }
 
-	public void setPlaca(String placa) {
-		this.placa = placa;
-	}
+    public String getColor() { return color; }
+    public void setColor(String color) { this.color = color; }
 
-	public String getColor() {
-		return color;
-	}
+    public Double getValorAlquiler() { return valorAlquiler; }
+    public void setValorAlquiler(Double valorAlquiler) { this.valorAlquiler = valorAlquiler; }
 
-	public void setColor(String color) {
-		this.color = color;
-	}
-
-	public Double getValorDiario() {
-		return valorDiario;
-	}
-
-	public void setValorDiario(Double valorDiario) {
-		this.valorDiario = valorDiario;
-	}
-
-	public Boolean getDisponible() {
-		return disponible;
-	}
-
-	public void setDisponible(Boolean disponible) {
-		this.disponible = disponible;
-	}
-
-
-    
-    
+    public String getEstado() { return estado; }
+    public void setEstado(String estado) { this.estado = estado; }
 }
