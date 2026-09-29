@@ -1,0 +1,69 @@
+<!-- Hero Banner -->
+<div class="bg-dark text-white text-center py-5 shadow-sm">
+  <div class="container py-4">
+    <h1 class="display-4 fw-bold">🚗 Mi Cacharrito</h1>
+    <p class="lead text-light mb-4">
+      Tu solución confiable para alquilar el vehículo ideal cuando lo necesites.
+    </p>
+
+    <div class="d-flex justify-content-center gap-3">
+      @if (!dataService.estaAutenticado()) {
+        <a routerLink="/login" class="btn btn-primary btn-lg px-4 fw-semibold">Iniciar Sesión / Registrarse</a>
+      } @else {
+        @if (dataService.esAdmin()) {
+          <a routerLink="/admin" class="btn btn-warning btn-lg px-4 fw-semibold">Ir al Panel Administrativo</a>
+        } @else {
+          <a routerLink="/vehiculos" class="btn btn-success btn-lg px-4 fw-semibold">Ver Vehículos Disponibles</a>
+          <a routerLink="/mis-alquileres" class="btn btn-outline-light btn-lg px-4">Mis Alquileres</a>
+        }
+      }
+    </div>
+  </div>
+</div>
+
+<!-- Sección de Servicios / Beneficios -->
+<div class="container my-5">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold">¿Por qué elegir Mi Cacharrito?</h2>
+    <p class="text-muted">Proceso ágil, transparente y con total respaldo.</p>
+  </div>
+
+  <div class="row g-4 text-center">
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-sm p-4">
+        <div class="display-5 text-primary mb-3">⚡</div>
+        <h5 class="fw-bold">Reserva Inmediata</h5>
+        <p class="text-muted">
+          Regístrate con tu licencia de conducción, elige las fechas y asegura tu vehículo en pocos clics.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-sm p-4">
+        <div class="display-5 text-primary mb-3">🛡️</div>
+        <h5 class="fw-bold">Flota Asegurada</h5>
+        <p class="text-muted">
+          Todos los vehículos cuentan con revisión técnico-mecánica vigente y póliza contra todo riesgo.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-sm p-4">
+        <div class="display-5 text-primary mb-3">📋</div>
+        <h5 class="fw-bold">Gestión de Licencias</h5>
+        <p class="text-muted">
+          Control estricto de categorías autorizadas (A1, A2, B1, B2, C1) y vigencia para tu seguridad.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-light text-center py-4 border-top mt-5">
+  <div class="container text-muted">
+    <small>© 2026 Mi Cacharrito - Sistema de Alquiler de Vehículos</small>
+  </div>
+</footer>

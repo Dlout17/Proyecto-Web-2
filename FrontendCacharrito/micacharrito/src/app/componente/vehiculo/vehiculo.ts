@@ -1,6 +1,7 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';   
 import { vehiculo } from '../../servicio/vehiculo';
 
 @Component({
@@ -21,7 +22,8 @@ export class Vehiculo {
 
   constructor(
     private servicioVehiculo: vehiculo,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private router: Router 
   ) {}
 
   buscarVehiculosPorTipo() {
@@ -37,6 +39,16 @@ export class Vehiculo {
       },
       error: (err: any) => {
         alert("Ocurrió un error al obtener el catálogo de vehículos.");
+      }
+    });
+  }
+  solicitarAlquiler(v: any) {
+    this.router.navigate(['/alquileres'], {
+      queryParams: {
+        placa: v.placa,
+        valor: v.valorAlquiler,
+        color: v.color,      
+        tipoVehiculo: v.tipo
       }
     });
   }

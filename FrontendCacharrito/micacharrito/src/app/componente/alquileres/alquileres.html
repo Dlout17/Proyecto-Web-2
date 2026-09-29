@@ -1,0 +1,405 @@
+<div class="pagina">
+
+  
+
+
+  <!-- CONTENIDO -->
+  <main class="contenido">
+
+    <div class="container mt-4">
+
+      <!-- TITULO -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2>
+          Alquileres
+        </h2>
+
+        
+
+      </div>
+
+
+      <!-- BUSCAR ALQUILER -->
+      <div class="card mb-4">
+
+        <div class="card-body">
+
+          <h5 class="card-title">
+            Buscar alquiler
+          </h5>
+
+          <div class="row">
+
+            <div class="col-md-8">
+
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Número de alquiler"
+                [(ngModel)]="numeroBuscar">
+
+            </div>
+
+            <div class="col-md-4">
+
+              <button
+                class="btn btn-primary me-2"
+                (click)="buscarAlquiler()">
+                Buscar
+              </button>
+
+              <button
+                class="btn btn-secondary"
+                (click)="listarAlquileres()">
+                Mostrar todos
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- TABLA -->
+      <div class="table-responsive">
+
+        <table class="table table-bordered table-striped table-hover">
+
+          <thead class="table-dark">
+
+            <tr>
+
+              <th>Usuario</th>
+              <th>Identificación</th>
+              <th>Fecha inicio</th>
+              <th>Fecha entrega</th>
+              <th>Valor total</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            @for (alquiler of listaAlquileres; track alquiler.numeroAlquiler) {
+
+              <tr>
+
+                <td>
+                  {{ alquiler.nombreUsuario }}
+                </td>
+
+                <td>
+                  {{ alquiler.idUsuario }}
+                </td>
+
+                <td>
+                  {{ alquiler.fechaInicio }}
+                </td>
+
+                <td>
+                  {{ alquiler.fechaEntrega }}
+                </td>
+
+                <td>
+                  ${{ alquiler.valorTotal }}
+                </td>
+
+                <td>
+
+                  @if (alquiler.estado === 'Cancelado') {
+
+                    <span class="badge bg-danger">
+                      {{ alquiler.estado }}
+                    </span>
+
+                  } @else if (alquiler.estado === 'pendiente de entrega') {
+
+                    <span class="badge bg-warning text-dark">
+                      {{ alquiler.estado }}
+                    </span>
+
+                  } @else {
+
+                    <span class="badge bg-success">
+                      {{ alquiler.estado }}
+                    </span>
+
+                  }
+
+                </td>
+
+                <td>
+
+                  <div class="d-flex gap-1 flex-wrap">
+
+                    <button
+                      class="btn btn-warning btn-sm"
+                      (click)="seleccionarAlquiler(alquiler)">
+                      Editar
+                    </button>
+
+                    <button
+                      class="btn btn-danger btn-sm"
+                      (click)="eliminarAlquiler(alquiler.numeroAlquiler)">
+                      Eliminar
+                    </button>
+
+                    @if (alquiler.estado !== 'Cancelado') {
+
+                      <button
+                        class="btn btn-secondary btn-sm"
+                        (click)="cancelarAlquiler(alquiler.numeroAlquiler)">
+                        Cancelar
+                      </button>
+
+                    }
+
+                    <button
+                      class="btn btn-primary btn-sm"
+                      (click)="generarPDF(alquiler.numeroAlquiler)">
+                      PDF
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            }
+
+            @if (listaAlquileres.length === 0) {
+
+              <tr>
+
+                <td
+                  colspan="7"
+                  class="text-center">
+
+                  No hay alquileres registrados.
+
+                </td>
+
+              </tr>
+
+            }
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- MODAL -->
+  @if (modalAbierto) {
+
+  <div
+    class="modal fade show d-block"
+    tabindex="-1"
+    style="background-color: rgba(0,0,0,0.5);">
+
+    <div class="modal-dialog modal-lg">
+
+      <div class="modal-content">
+
+        <!-- CABECERA -->
+        <div class="modal-header">
+
+          <h5 class="modal-title">
+            @if (alquiler.numeroAlquiler) {
+              Editar alquiler
+            } @else {
+              Solicitar alquiler
+            }
+          </h5>
+
+          <button
+            type="button"
+            class="btn-close"
+            (click)="cerrarModal()">
+          </button>
+
+        </div>
+
+
+        <!-- CUERPO -->
+        <div class="modal-body">
+
+          <div class="row">
+
+            <div class="col-md-6 mb-3">
+            <label class="form-label">
+              Placa del Vehículo
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Ej. ABC123"
+              [(ngModel)]="alquiler.placa">
+          </div>
+
+          <div class="col-md-4 mb-3">
+      <label class="form-label fw-bold">Tipo de Vehículo</label>
+      <input
+        type="text"
+        class="form-control bg-light"
+        [(ngModel)]="alquiler.tipoVehiculo"
+        readonly>
+    </div>
+
+         
+
+            <!-- NOMBRE -->
+            <div class="col-md-6 mb-3">
+
+              <label class="form-label">
+                Nombre del usuario
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="alquiler.nombreUsuario">
+
+            </div>
+
+
+            <!-- IDENTIFICACIÓN -->
+            <div class="col-md-6 mb-3">
+
+              <label class="form-label">
+                Identificación
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="alquiler.idUsuario">
+
+            </div>
+
+
+            <!-- FECHA INICIO -->
+            <div class="col-md-6 mb-3">
+
+              <label class="form-label">
+                Fecha de inicio
+              </label>
+
+              <input
+                type="date"
+                class="form-control"
+                [(ngModel)]="alquiler.fechaInicio">
+
+            </div>
+
+
+            <!-- FECHA ENTREGA -->
+            <div class="col-md-6 mb-3">
+
+              <label class="form-label">
+                Fecha de entrega
+              </label>
+
+              <input
+                type="date"
+                class="form-control"
+                [(ngModel)]="alquiler.fechaEntrega">
+
+            </div>
+
+
+            <!-- VALOR -->
+            <div class="col-md-6 mb-3">
+
+              <label class="form-label">
+                Valor del alquiler
+              </label>
+
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="alquiler.valorTotal">
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- FOOTER DEL MODAL -->
+        <div class="modal-footer">
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="cerrarModal()">
+            Cancelar
+          </button>
+
+          @if (alquiler.numeroAlquiler) {
+
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="actualizarAlquiler()">
+              Actualizar
+            </button>
+
+          } @else {
+
+            <button
+              type="button"
+              class="btn btn-success"
+              (click)="guardarAlquiler()">
+              Aceptar alquiler
+            </button>
+
+          }
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+}
+
+  <!-- FOOTER -->
+  <footer class="bg-dark text-white text-center py-4">
+
+    <div class="container">
+
+      <h5>
+        Mi Cacharrito
+      </h5>
+
+      <p class="mb-1">
+        Sistema de alquiler de vehículos
+      </p>
+
+      <p class="mb-0">
+        © 2026 Mi Cacharrito - Todos los derechos reservados
+      </p>
+
+    </div>
+
+  </footer>
+
+</div>

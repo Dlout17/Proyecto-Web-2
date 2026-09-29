@@ -40,7 +40,7 @@ public class AdministradorControlador {
         return repoVehiculo.listarDisponiblesPorTipo(tipo);
     }
 
-    // Corregido: @RequestParam en lugar de @Param
+   
     @PutMapping("/cambiarEstadoEntregado")
     public ResponseEntity<String> cambiarEstadoAEntregado(@RequestParam("placa") String placa) {
         int filasModificadas = repoVehiculo.cambiarEstadoAEntregado(placa);
