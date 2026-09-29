@@ -1,0 +1,41 @@
+
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand">🏎️ Mi Cacharrito</a>
+    <ul class="navbar-nav me-auto">
+      @if (dataService.estaAutenticado()) {
+        @if (!dataService.esAdmin()) {
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/catalogo">Catalogo</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/alquileres">Mis Alquileres</a>
+          </li>
+        } @else {
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/paneladmin">Panel Admin</a>
+          </li>
+        }
+      }
+    </ul>
+
+    <ul class="navbar-nav">
+      @if (dataService.estaAutenticado()) {
+        <li class="nav-item">
+          <span class="navbar-text me-3 text-light">
+            {{ dataService.usuarioSignal()?.nombreCompleto }} ({{ dataService.usuarioSignal()?.rol }})
+          </span>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-outline-danger btn-sm" (click)="cerrarSesion()">Salir</button>
+        </li>
+      } @else {
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/login">Iniciar Sesión</a>
+        </li>
+      }
+    </ul>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>

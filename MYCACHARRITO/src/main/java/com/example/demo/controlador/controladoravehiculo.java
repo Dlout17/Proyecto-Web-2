@@ -24,6 +24,9 @@ public class controladoravehiculo {
 	 
 	 @PostMapping("/guardar")
 	    public Vehiculo guardarVehiculo(@RequestBody Vehiculo vehiculo) {
+		 if (vehiculo.getEstado() == null || vehiculo.getEstado().trim().isEmpty()) {
+		        vehiculo.setEstado("DISPONIBLE");
+		    }
 	        return Repovehiculo.save(vehiculo);
 	    }
 	 

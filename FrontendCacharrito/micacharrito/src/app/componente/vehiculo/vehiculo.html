@@ -33,7 +33,6 @@
         </div>
       </div>
 
-      <!-- Tabla de Resultados -->
       @if (vehiculosDisponibles != null && vehiculosDisponibles.length > 0) {
         <div class="table-responsive">
           <table class="table table-hover table-striped align-middle border">
@@ -44,6 +43,7 @@
                 <th>Color</th>
                 <th>Valor Alquiler / Día</th>
                 <th>Estado</th>
+                <th>Acción</th> 
               </tr>
             </thead>
             <tbody>
@@ -54,6 +54,12 @@
                 <td class="text-success fw-bold">${{ v.valorAlquiler | number:'1.0-0' }}</td>
                 <td>
                   <span class="badge bg-success">Disponible</span>
+                  
+                </td>
+                <td>
+                  <button class="btn btn-sm btn-primary" (click)="solicitarAlquiler(v)">
+              Solicitar Alquiler
+            </button>
                 </td>
               </tr>
             </tbody>
@@ -68,52 +74,4 @@
     </div>
   </div>
 
-  <!-- REGISTRO DE NUEVO VEHÍCULO -->
-  <div class="card shadow-sm">
-    <div class="card-header bg-dark text-white">
-      <h4 class="mb-0">Registrar Nuevo Vehículo</h4>
-    </div>
-    <div class="card-body">
-      
-      <div class="row g-3">
-        
-        <div class="col-md-6">
-          <label for="placa" class="form-label fw-bold">Placa:</label>
-          <input type="text" id="placa" name="placa" class="form-control" placeholder="Ej: ABC-123" [(ngModel)]="placa">
-        </div>
-
-        <div class="col-md-6">
-          <label for="tipoNuevo" class="form-label fw-bold">Tipo de Vehículo:</label>
-          <select id="tipoNuevo" name="tipoNuevo" class="form-select" [(ngModel)]="tipoNuevo">
-            <option *ngFor="let t of tiposVehiculo" [value]="t">
-              {{ t | titlecase }}
-            </option>
-          </select>
-        </div>
-
-        <div class="col-md-6">
-          <label for="color" class="form-label fw-bold">Color:</label>
-          <input type="text" id="color" name="color" class="form-control" placeholder="Ej: Rojo, Negro, Blanco" [(ngModel)]="color">
-        </div>
-
-        <div class="col-md-6">
-          <label for="valorAlquiler" class="form-label fw-bold">Valor de Alquiler ($):</label>
-          <input type="number" id="valorAlquiler" name="valorAlquiler" class="form-control" placeholder="Ej: 150000" [(ngModel)]="valorAlquiler">
-        </div>
-
-        <div class="col-12 text-end mt-4">
-          <button type="button" class="btn btn-secondary me-2" (click)="limpiarFormularioGestion()">
-            Limpiar Campos
-          </button>
-          <button type="button" class="btn btn-success btn-lg px-4" (click)="registrarVehiculo()">
-            Guardar Vehículo
-          </button>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-
-</div>
-
+ 

@@ -10,6 +10,7 @@ public interface vehiculorepositorio extends JpaRepository <Vehiculo, Long> {
 
 	@Query(value = "SELECT * FROM vehiculos WHERE LOWER(tipo) = LOWER(:tipo) AND UPPER(estado) = 'DISPONIBLE'", nativeQuery = true)
     List<Vehiculo> buscarVehiculosDisponiblesPorTipo(@Param("tipo") String tipo);
-
+	@Query(value = "SELECT * FROM vehiculos WHERE UPPER(placa) = UPPER(:placa)", nativeQuery = true)
+    Vehiculo findByPlaca(@Param("placa") String placa);
 	
 }

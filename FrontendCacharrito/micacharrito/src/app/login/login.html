@@ -1,0 +1,102 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+      <div class="card shadow border-0">
+        <div class="card-header bg-dark text-white text-center py-3">
+          <h4 class="mb-0">🚗 Mi Cacharrito</h4>
+          <small class="text-secondary">Iniciar Sesión</small>
+        </div>
+        <div class="card-body p-4">
+          @if (mensajeError) {
+            <div class="alert alert-danger py-2">{{ mensajeError }}</div>
+          }
+
+          <form (ngSubmit)="iniciarSesion()">
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Número de Identificación</label>
+              <input type="text" class="form-control" [(ngModel)]="identificacion" name="identificacion" required placeholder="Ej: 111111">
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label fw-semibold">Contraseña</label>
+              <input type="password" class="form-control" [(ngModel)]="password" name="password" required placeholder="••••••••">
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 py-2 mb-3 fw-semibold">Ingresar</button>
+            <button type="button" class="btn btn-outline-secondary w-100" (click)="abrirModalRegistro()">¿No tienes cuenta? Regístrate aquí</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal" tabindex="-1" id="modalRegistro" style="background-color: rgba(0, 0, 0, 0.65);">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content border-0 shadow">
+      
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title fw-bold">Registro de Nuevo Cliente</h5>
+        <button type="button" class="btn-close btn-close-white" (click)="cerrarModalRegistro()"></button>
+      </div>
+
+      <div class="modal-body p-4">
+        <form>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Número de Identificación</label>
+            <input type="text" class="form-control" [(ngModel)]="nuevoUsuario.identificacion" name="identificacion" placeholder="Número de cédula">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Nombre Completo</label>
+            <input type="text" class="form-control" [(ngModel)]="nuevoUsuario.nombreCompleto" name="nombreCompleto" placeholder="Nombres y apellidos">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Fecha de Expedición Licencia</label>
+            <input type="date" class="form-control" [(ngModel)]="nuevoUsuario.fechaExpedicionLicencia" name="fechaExpedicionLicencia">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Categoría Licencia</label>
+            <select class="form-select" [(ngModel)]="nuevoUsuario.categoria" name="categoria">
+              <option value="A1">A1 - Motocicletas hasta 125 c.c.</option>
+              <option value="A2">A2 - Motocicletas de más de 125 c.c.</option>
+              <option value="B1">B1 - Automóviles, camperos y camionetas</option>
+              <option value="B2">B2 - Camiones y busetas</option>
+              <option value="C1">C1 - Automóviles de servicio público</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Fecha de Vigencia Licencia</label>
+            <input type="date" class="form-control" [(ngModel)]="nuevoUsuario.vigencia" name="vigencia">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Correo Electrónico</label>
+            <input type="email" class="form-control" [(ngModel)]="nuevoUsuario.correo" name="correo" placeholder="ejemplo@correo.com">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Teléfono de Contacto</label>
+            <input type="text" class="form-control" [(ngModel)]="nuevoUsuario.telefono" name="telefono" placeholder="Número de celular">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Contraseña</label>
+            <input type="password" class="form-control" [(ngModel)]="nuevoUsuario.password" name="password" placeholder="Crea una contraseña segura">
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer bg-light">
+        <button type="button" class="btn btn-secondary px-4" (click)="cerrarModalRegistro()">Cancelar</button>
+        <button type="button" class="btn btn-primary px-4 fw-semibold" (click)="registrarUsuario()">Registrarme</button>
+      </div>
+
+    </div>
+  </div>
+</div>
